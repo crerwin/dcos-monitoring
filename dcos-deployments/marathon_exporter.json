@@ -1,0 +1,54 @@
+{
+    "id": "/monitoring/marathonexporter",
+    "cmd": null,
+    "cpus": 0.1,
+    "mem": 25,
+    "disk": 0,
+    "instances": 2,
+    "constraints": [
+      [
+        "hostname",
+        "UNIQUE"
+      ]
+    ],
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+        "forcePullImage": false,
+        "image": "gettyimages/marathon_exporter",
+        "parameters": [],
+        "privileged": false
+      },
+      "volumes": [],
+      "portMappings": [
+        {
+          "containerPort": 9088,
+          "hostPort": 9088,
+          "labels": {
+            "VIP_0": "/monitoring/marathonexporter:9088"
+          },
+          "name": "marathonexporter",
+          "protocol": "tcp",
+          "servicePort": 10000
+        }
+      ]
+    },
+    "healthChecks": [
+      {
+        "gracePeriodSeconds": 600,
+        "intervalSeconds": 30,
+        "maxConsecutiveFailures": 2,
+        "portIndex": 0,
+        "protocol": "TCP",
+        "ipProtocol": "IPv4",
+        "timeoutSeconds": 10,
+        "delaySeconds": 15
+      }
+    ],
+    "networks": [
+      {
+        "mode": "container/bridge"
+      }
+    ],
+    "portDefinitions": []
+  }
